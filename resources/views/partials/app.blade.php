@@ -25,7 +25,7 @@
             margin: 20px;
         }
         
-        .add-money-btn {
+                .add-money-btn {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -34,89 +34,99 @@
             font-size: 16px;
             cursor: pointer;
         }
-        
+
         .add-money-btn:hover {
             background-color: #3e8e41;
         }
-        
+
+
         .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        
+
         .popup-container {
             background-color: white;
-            border-radius: 5px;
+            border-radius: 12px;
             width: 100%;
-            max-width: 650px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 550px;
+            max-height: 80vh;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
             position: relative;
-        }
-        
+            overflow-y: auto;
+
+            }
+
         .popup-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #eee;
-            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #eaeaea;
         }
-        
+
         .popup-header h2 {
             margin: 0;
             font-size: 24px;
             font-weight: 400;
         }
-        
+
         .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            background: none;
             border: none;
-            font-size: 20px;
+            background: none;
+            font-size: 18px;
             cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            color: #666;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
         }
-        
+
         .close-btn:hover {
             background-color: #f5f5f5;
         }
-        
+
         .notice-box {
-            background-color: #fdc3c3;
+            background-color: #fef4f4;
             padding: 10px 20px;
             margin: 15px 25px;
             border-radius: 5px;
             display: flex;
             align-items: center;
         }
-        
+
         .notice-box .info-icon {
             margin-right: 10px;
-            color: #812626;
+            color: #333;
         }
-        
+
         .notice-box p {
             margin: 0;
             font-size: 14px;
             color: #333;
         }
-        
+
         .popup-body {
-            padding: 0 25px 25px;
+            padding: 16px 24px 24px;
+            /* overflow-y: auto; */
         }
-        
+
         .image-upload-container {
             background-color: #f0f8f0;
             padding: 25px;
@@ -126,10 +136,10 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
-        
+
         .image-preview-container {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border: 1px dashed #ccc;
             border-radius: 5px;
             display: flex;
@@ -139,12 +149,12 @@
             background-size: cover;
             background-position: center;
         }
-        
+
         .camera-icon {
-            font-size: 26px;
+            font-size: 24px;
             color: #666;
         }
-        
+
         .upload-btn {
             background-color: #4CAF50;
             color: white;
@@ -154,22 +164,22 @@
             cursor: pointer;
             font-size: 14px;
         }
-        
+
         .upload-btn:hover {
             background-color: #3e8e41;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 8px;
             font-size: 15px;
             color: #555;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 10px;
@@ -177,38 +187,38 @@
             border-radius: 5px;
             font-size: 14px;
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: #4CAF50;
         }
-        
+
         .currency-target-container {
             display: flex;
             gap: 15px;
         }
-        
+
         .currency-container, .target-container {
             flex: 1;
         }
-        
+
         .checkbox-container {
             margin-top: 10px;
             display: flex;
             align-items: flex-start;
         }
-        
+
         .checkbox-container input {
             margin-top: 3px;
             margin-right: 10px;
         }
-        
+
         .checkbox-container label {
             font-size: 14px;
             color: #555;
             line-height: 1.4;
         }
-        
+
         .save-btn {
             background-color: #4CAF50;
             color: white;
@@ -220,21 +230,35 @@
             font-size: 16px;
             margin-top: 15px;
         }
-        
+
+
         .save-btn:hover {
             background-color: #3e8e41;
         }
-        
+
         #actualFileInput {
             display: none;
         }
-        
+
         textarea.form-control {
             min-height: 100px;
             resize: vertical;
         }
+
+        @media (max-width: 600px) {
+            .popup-header h2 {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .notice-box p {
+                font-size: 11px;
+            }
+            .checkbox-container label {
+                font-size: 11px;
+            }
+        }
         
-        </style>
+    </style>
         
 </head>
 
