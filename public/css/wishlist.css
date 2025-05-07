@@ -1,0 +1,486 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 15px 0;
+}
+
+.navbar-brand img {
+    max-height: 40px;
+}
+
+.btn-primary {
+    background-color: #2D8C40;
+    border-color: #2D8C40;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #2D8C40;
+    border-color: #2D8C40;
+}
+
+.btn-outline-primary {
+    color: #2D8C40;
+    border-color: #2D8C40;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+    background-color: #2D8C40;
+    color: white;
+}
+
+.sharing-section {
+    background-color: white;
+    padding: 40px 0;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.social-share {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-share a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.social-share a:hover {
+    transform: translateY(-3px);
+}
+
+.facebook {
+    background-color: #1877F2;
+}
+
+.twitter {
+    background-color: #1DA1F2;
+}
+
+.whatsapp {
+    background-color: #25D366;
+}
+
+.telegram {
+    background-color: #0088cc;
+}
+
+.email {
+    background-color: #EA4335;
+}
+
+.category-tag {
+    display: inline-block;
+    background-color: #E1F7E559;
+    color: #2D8C40;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+
+ /* Footer content */
+ .cta-section {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.cta-heading {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.create-btn {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    margin-top: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.create-btn:hover {
+    background-color: #1b5e20;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: #000;
+    color: #777;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.copyright {
+    font-size: 0.9rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    color: #2e7d32;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cta-heading {
+        font-size: 2.5rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+
+/* New create wishlist css code */
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .main-container {
+            width: 100%;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        
+        .step-heading {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin: 30px 0 20px 0;
+        }
+        
+        .wishlist-form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .upload-area {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .camera-icon {
+            font-size: 2.5rem;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .upload-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 30px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .upload-text {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .form-section {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .edit-icon {
+            color: #6c757d;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .location-icon, .intro-icon {
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin: 20px 0;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+        
+        .tab.active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .tab:not(.active) {
+            background-color: #f1f1f1;
+            color: #6c757d;
+        }
+
+        .item-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .add-item-container {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .add-item-icon {
+            font-size: 2rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .add-item-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .add-item-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+        }
+
+        /* Item card styling */
+        .item-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .item-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Money tab content */
+        .money-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        .money-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
+        }
+        .money-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .money-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .money-details {
+            flex-grow: 1;
+        }
+
+        .money-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .money-price {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .money-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .money-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Gift idea tab content */
+        .gift-idea-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Share tab content */
+        .share-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 0px;
+            text-align: center;
+            display: none;
+            margin-top: -100px;
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+            .col-md-4, .col-md-8 {
+                width: 100%;
+            }
+            .tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+            .tab {
+                flex: 0 0 auto;
+                white-space: nowrap;
+            }
+            .add-item-text {
+                font-size: 0.8rem;
+            }
+
+        }
