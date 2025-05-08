@@ -22,8 +22,7 @@
         .password-toggle:hover {
             color: #000;
         }
-
-</style>
+    </style>
 </head>
 <body class="bg-light">
 
@@ -59,16 +58,15 @@
                 </div>
                 
                 <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <div class="password-container">
-                                <input type="password" name="password" id="password" class="form-control" required>
-                                <span class="password-toggle" id="togglePassword">
-                                    <i class="fas fa-eye-slash"></i>
-                                </span>
-                            </div>
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" name="password" id="password" class="form-control" required>
+                        <span class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
                 </div>
 
-                
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="remember" name="remember">
@@ -85,7 +83,40 @@
             </div>
         </div>
     </div>
+
     <script>
+        // Function to initialize password toggle
+        function initPasswordToggle() {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            if (togglePassword && passwordInput) {
+                // Remove any existing event listeners to prevent duplicates
+                togglePassword.removeEventListener('click', togglePasswordVisibility);
+                // Add new event listener
+                togglePassword.addEventListener('click', togglePasswordVisibility);
+            }
+        }
+
+        // Function to toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+            this.querySelector('i').classList.toggle('fa-eye');
+        }
+
+        // Initialize on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', initPasswordToggle);
+
+        // Also initialize immediately to handle redirects
+        initPasswordToggle();
+
+        // Handle Sweet Alert notifications
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
@@ -95,6 +126,7 @@
                 timer: 5000
             });
         @endif
+        
         @if(session('error'))
             Swal.fire({
                 icon: 'error',
@@ -102,24 +134,8 @@
                 text: '{{ session('error') }}',
                 showConfirmButton: false,
                 timer: 5000
-            })
-        ;@endif
-
-        document.addEventListener('DOMContentLoaded', function() {
-          const togglePassword = document.getElementById('togglePassword');
-          const passwordInput = document.getElementById('password');
-
-          togglePassword.addEventListener('click', function() {
-              // Toggle the type attribute
-              const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-              passwordInput.setAttribute('type', type);
-              
-              // Toggle the eye icon              
-              
-              this.querySelector('i').classList.toggle('fa-eye-slash');
-              this.querySelector('i').classList.toggle('fa-eye');
-          });
-      });
+            });
+        @endif
     </script>
 </body>
 </html>

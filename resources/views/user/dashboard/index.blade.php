@@ -8,10 +8,15 @@
             <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6" id="profile">
                 <!-- Profile Left -->
                 <div class="flex items-center gap-4">
-                    <img src="{{ asset('user/image/1200x800jpg.jpg') }}" alt="Profile Image" class="w-16 h-16 rounded-full object-cover">
+                    @if ($user->profile_picture)
+                        <img src="{{ asset('user/image/'.$user->profile_picture ?? 'images/profile.jpg') }}" alt="Profile Image" class="w-16 h-16 rounded-full object-cover">
+                        @else
+                        <img src="{{ asset('images/profile.jpg') }}" alt="Profile Image" class="w-16 h-16 rounded-full object-cover">
+                    @endif
+
                     <div>
                         <h2 class="text-xl font-semibold">{{ $user->first_name." ". $user->last_name }}</h2>
-                        <a href="" class="mt-1 inline-flex items-center gap-2 text-sm text-green-600 border border-green-600 px-3 py-1 rounded-full hover:bg-green-50">
+                        <a href="" onclick="toggleProfileModal(true)" class="mt-1 inline-flex items-center gap-2 text-sm text-green-600 border border-green-600 px-3 py-1 rounded-full hover:bg-green-50">
                             <i class="bi bi-pencil-square"></i> Edit profile
                         </a>
                     </div>
@@ -24,6 +29,97 @@
                 </div>
             </div>
             
+           <!-- Edit Profile Modal -->
+            <div id="edit-profile-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+                <div class="bg-white w-full max-w-md p-6 rounded-xl shadow-lg overflow-y-auto max-h-screen" onclick="event.stopPropagation()">
+                    <!-- Modal Header -->
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold">Edit Profile</h3>
+                        <button onclick="toggleProfileModal(false)" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Profile Form -->
+                    <form id="profileForm" method="POST" action="{{ route('user.profile.update') }}" enctype="multipart/form-data" class="space-y-4">
+                        @csrf
+                        @method('PUT')
+                        
+                        <!-- Profile Image -->
+                        <div class="text-center mb-4">
+                            <div class="relative inline-block">
+                                @if ($user->profile_picture)
+                                    <img id="profile-preview" src="{{ asset('user/image/'.$user->profile_picture) }}" alt="Profile Image" class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-green-600">
+                                    @else
+                                    <img id="profile-preview" src="{{ asset('images/profile.jpg') }}" alt="Profile Image" class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-green-600">
+                                @endif
+                                <label for="profile-image" class="absolute bottom-0 right-0 bg-green-600 text-white rounded-full p-1 cursor-pointer">
+                                    <i class="fas fa-pen"></i>
+                                    <input type="file" id="profile-image" name="profile_picture" class="hidden"">
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Name Fields -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="first-name" name="first_name" value="{{ $user->first_name }}" class="w-full border px-3 py-2 rounded" required>
+                            </div>
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="last-name" name="last_name" value="{{ $user->last_name }}" class="w-full border px-3 py-2 rounded" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" value="{{ $user->email }}" class="w-full border px-3 py-2 rounded bg-gray-100" readonly>
+                            <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                        </div>
+                        <!-- Change Password Toggle -->
+                        <div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="change-password-toggle" class="mr-2">
+                                <label for="change-password-toggle" class="text-sm font-medium text-gray-700">Change Password</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Password Fields (initially hidden) -->
+                        <div id="password-fields" class="hidden space-y-4">
+                            <div class="relative">
+                                <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                                <input type="password" id="current-password" name="current_password" class="w-full border px-3 py-2 rounded">
+                                <button type="button" class="toggle-password absolute right-3 top-9 cursor-pointer" data-target="current-password">
+                                    <i class="fas fa-eye-slash text-gray-500 hover:text-green-500"></i>
+                                </button>
+                            </div>
+                            <div class="relative">
+                                <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                                <input type="password" id="new-password" name="new_password" class="w-full border px-3 py-2 rounded">
+                                <button type="button" class="toggle-password absolute right-3 top-9 cursor-pointer" data-target="new-password">
+                                    <i class="fas fa-eye-slash text-gray-500 hover:text-green-500"></i>
+                                </button>
+                            </div>
+                            <div class="relative">
+                                <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                                <input type="password" id="confirm-password" name="new_password_confirmation" class="w-full border px-3 py-2 rounded">
+                                <button type="button" class="toggle-password absolute right-3 top-9 cursor-pointer" data-target="confirm-password">
+                                    <i class="fas fa-eye-slash text-gray-500 hover:text-green-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="mt-6">
+                            <button type="submit" id="profile-submit-button" class="bg-green-600 text-white px-4 py-2 rounded w-full hover:bg-green-700">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
            <!-- Tabs Header -->
            <div class="flex space-x-4 mb-6 border-b overflow-x-auto whitespace-nowrap">
@@ -43,6 +139,25 @@
                 </span>
             </div>
             @endif
+            @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+                <span onclick="this.parentElement.style.display='none';"
+                      class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer text-red-700">
+                    &times;
+                </span>
+            </div>
+            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         
                 <!-- Wishlist Grid (List Tab) -->
                 <div id="list-content" class="tab-content block">
@@ -66,10 +181,10 @@
                                 <div class="mt-2 flex justify-end gap-2">
                                     <a href="{{ route('wishlist.view', $wishlist->slug) }}" class="hover:underline"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('wishlist.show', $wishlist->slug) }}" class="hover:underline"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('wishlist.destroy', $wishlist->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    <form class="deleteWishlist" action="{{ route('wishlist.destroy', $wishlist->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-500"><i class="fas fa-trash"></i></button>
+                                        <button type="button" class="deleteWishlistbutton text-red-500"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -100,7 +215,7 @@
 
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold">Payout history</h3>
-                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Withdraw funds</button>
+                            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 withdraw" >Withdraw funds</button>
                         </div>
 
                         <div class="overflow-x-auto bg-white shadow rounded-lg">
@@ -247,7 +362,7 @@
 
 
 
-    </div>
-</section>
+        </div>
+    </section>
   
 @endsection

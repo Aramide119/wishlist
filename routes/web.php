@@ -49,6 +49,7 @@ Route::delete('/money/{id}', [MoneyController::class, 'destroy'])->name('money.d
 
 //dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Get all wishlists
+Route::put('/profile/update', [AuthController::class, 'update'])->name('user.profile.update');
 
 
 //bank
