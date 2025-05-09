@@ -70,7 +70,7 @@ class AuthController extends Controller
             'last_name' => 'required|string|max:255',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'current_password' => 'nullable|required_with:new_password|string',
-            'new_password' => 'nullable|required_with:current_password|string|confirmed',
+            'new_password' => 'nullable|string|confirmed',
         ]);
     
         // Update profile image if uploaded

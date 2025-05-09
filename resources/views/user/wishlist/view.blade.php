@@ -19,10 +19,7 @@
                                 <!-- Clickable image -->
                                 <img src="{{ asset($wishlist->image) }}">
                                 @else
-                                    <div class="upload-text" 
-                                    style=" cursor: pointer;" onclick="document.getElementById('media-upload').click();">
-                                        Add image or video
-                                    </div>
+                                <img src="{{ asset('images/wishlist.jpg') }}">
                                 @endif
                                             
                             </div>
@@ -161,20 +158,14 @@
                         </div>
                         
                         <div class="social-share">
-                            <a href="#" class="facebook">
+                            <a href="@if (isset($wishlist)) https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('wishlist/' . $wishlist->slug)) }}@endif" class="facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="#" class="twitter">
+                            <a href="@if (isset($wishlist)) https://twitter.com/intent/tweet?url={{ urlencode(url('wishlist/' . $wishlist->slug)) }} @endif" class="twitter">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="#" class="whatsapp">
+                            <a href="@if (isset($wishlist)) https://wa.me/?text={{ urlencode(url('wishlist/' . $wishlist->slug)) }} @endif" class="whatsapp">
                                 <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="#" class="telegram">
-                                <i class="fab fa-telegram-plane"></i>
-                            </a>
-                            <a href="#" class="email">
-                                <i class="fas fa-envelope"></i>
                             </a>
                                         </div>
                                     </div>

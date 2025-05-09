@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="https://mywishlist.ng/wp-content/uploads/2025/02/mywishlist-logo.png" alt="MyWishList.ng Logo">
+                <img src="{{asset('images/logo.png')}}" alt="MyWishList.ng Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -30,13 +30,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-4">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="{{url('/')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/how-it-works">How It Works</a>
+                        <a class="nav-link" href="{{route('about')}}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="{{ route('contact')}}">Contact</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -60,13 +60,9 @@
                             <div>
                                 <!-- Preview will be inserted here -->
                                 @if (isset($wishlist) && $wishlist->image)
-                                <!-- Clickable image -->
                                 <img src="{{ asset($wishlist->image) }}">
                                 @else
-                                    <div class="upload-text" 
-                                    style=" cursor: pointer;" onclick="document.getElementById('media-upload').click();">
-                                        Add image or video
-                                    </div>
+                                <img src="{{ asset('images/wishlist.jpg') }}">
                                 @endif
                                             
                             </div>
@@ -206,7 +202,7 @@
 
             @endforeach
 
-        @endif
+            @endif
             </div>  
             </section>
 

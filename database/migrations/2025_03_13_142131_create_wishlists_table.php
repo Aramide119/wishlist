@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('postal');
             $table->string('country');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

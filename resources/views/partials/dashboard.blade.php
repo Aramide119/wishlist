@@ -63,7 +63,7 @@
                     <i class="fas fa-chevron-down ml-2 text-sm"></i>
                 </button>
                 <div id="userDropdown" class="hidden absolute right-0 mt-2 bg-white shadow-md rounded w-40 z-50">
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100">Profile</a>
+                    <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" onclick="toggleProfileModal(true)">Profile</a>
                     <form action="{{ route('logout') }}" method="POST" id="signoutForm">
                     @csrf
                     <button type="submit" id="signoutButton" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
@@ -104,8 +104,21 @@
                     })
                 ;@endif
     </script>
-        <script>            
-           
+        <script>  
+                  
+           function toggleShareMenu() {
+                const menu = document.getElementById('shareMenu');
+                menu.classList.toggle('hidden');
+            }
+
+            // click outside to close the menu
+            window.addEventListener('click', function(e) {
+                const menu = document.getElementById('shareMenu');
+                const button = e.target.closest('button');
+                if (!e.target.closest('#shareMenu') && !button) {
+                    menu.classList.add('hidden');
+                }
+            });
         document.addEventListener('DOMContentLoaded', function() {
             // Password change toggle
             const changePasswordToggle = document.getElementById('change-password-toggle');

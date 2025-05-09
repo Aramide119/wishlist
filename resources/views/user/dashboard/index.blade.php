@@ -74,7 +74,7 @@
                         
                         <!-- Email -->
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                             <input type="email" id="email" name="email" value="{{ $user->email }}" class="w-full border px-3 py-2 rounded bg-gray-100" readonly>
                             <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
                         </div>
@@ -157,7 +157,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+            @endif
         
                 <!-- Wishlist Grid (List Tab) -->
                 <div id="list-content" class="tab-content block">
@@ -174,11 +174,16 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach ($wishlists as $wishlist)
                             <div class="bg-white p-4 rounded-xl shadow hover:shadow-md transition-all">
-                                <img src="{{ asset($wishlist->image) }}" alt="Item Image" class="w-full h-40 object-cover rounded-lg mb-3">
+                                <a href="{{ route('wishlist.view', $wishlist->slug)}}">
+                                 <img src="{{ asset($wishlist->image) }}" alt="Item Image" class="w-full h-40 object-cover rounded-lg mb-3">
+                                </a>
                                 <h3 class="text-lg font-medium mb-1">{{ $wishlist->title }}</h3>
                                 <p class="text-sm text-gray-600">Items: {{ $wishlist->items_count }}</p>
 
                                 <div class="mt-2 flex justify-end gap-2">
+                                    <button onclick="toggleShareMenu()" class="hover:underline">
+                                        <i class="fas fa-share"></i>
+                                    </button>
                                     <a href="{{ route('wishlist.view', $wishlist->slug) }}" class="hover:underline"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('wishlist.show', $wishlist->slug) }}" class="hover:underline"><i class="fas fa-edit"></i></a>
                                     <form class="deleteWishlist" action="{{ route('wishlist.destroy', $wishlist->id) }}" method="POST">
@@ -186,6 +191,23 @@
                                         @method('DELETE')
                                         <button type="button" class="deleteWishlistbutton text-red-500"><i class="fas fa-trash"></i></button>
                                     </form>
+
+                                      <!-- Social share menu -->
+                                    <div id="shareMenu" class="absolute z-10 hidden bg-white border rounded shadow p-4 space-y-4 mt-2">
+                                        <h5>Share to your friends on</h5>
+                                        {{-- <button value="copyShareLink('{{ url('wishlist/' . $wishlist->slug) }}')" id="shareLink">
+                                            <i class="fab fa-instagram text-pink-500"></i>
+                                        </button> --}}
+                                        <a href="https://wa.me/?text={{ urlencode(url('wishlist/' . $wishlist->slug)) }}" target="_blank">
+                                            <i class="fab fa-whatsapp text-green-500"></i> 
+                                        </a>
+                                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(url('wishlist/' . $wishlist->slug)) }}" target="_blank">
+                                            <i class="fab fa-twitter text-blue-400"></i> 
+                                        </a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('wishlist/' . $wishlist->slug)) }}" target="_blank">
+                                            <i class="fab fa-facebook-f text-blue-600"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
