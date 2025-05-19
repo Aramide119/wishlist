@@ -45,18 +45,20 @@
         <div class="col-lg-6 col-md-12">
             <div class="contact-form">
                 <h2>Send Message</h2>
-                <form>
+                 {!! session('message') !!}
+                <form action="{{route('contact.us')}}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter full name">
+                        <input type="text" class="form-control" id="name" placeholder="Enter full name" name="name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email address">
+                        <input type="email" class="form-control" id="email" placeholder="Enter email address" name="email">
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Text your message</label>
-                        <textarea class="form-control" id="message" rows="5"></textarea>
+                        <textarea class="form-control" id="message" rows="5" name="message"></textarea>
                     </div>
                     <button type="submit"  id="contact-btn" class="btn btn-send">Send message</button>
                 </form>

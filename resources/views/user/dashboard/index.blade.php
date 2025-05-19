@@ -255,9 +255,21 @@
                                 </thead>
                                 <tbody>
                                     <tr class="border-b">
+                                        @if ($withdrawals)
+                                        @foreach ($withdrawals as $withdrawal)
+                                            <td class="px-4 py-6">{{$withdrawal->reference}}</td>
+                                                                                    <td class="px-4 py-6">{{$withdrawal->bankAccount->account_name}}</td>
+                                            <td class="px-4 py-6">{{$withdrawal->bankAccount->bank_name}}</td>
+                                            <td class="px-4 py-6">{{$withdrawal->amount}}</td>
+                                            <td class="px-4 py-6">{{ \Carbon\Carbon::parse($withdrawal->created_at)->format('d M, Y') }}</td>                                            <td class="px-4 py-6 text-success">{{$withdrawal->status}}</td>
+
+@endforeach
+                                            @else
                                         <td colspan="7" class="px-4 py-6 text-center text-gray-400">
                                             You don't have any transaction
                                         </td>
+                                        @endif
+                                       
                                     </tr>
                                 </tbody>
                             </table>
@@ -318,7 +330,8 @@
                                         
                                 </div>
                             <!-- Withdraw Form -->
-                            <form id="withdraw-form" class="mt-6" action="" method="POST">
+                            <form class="mt-6" action="{{route('wallet.withdraw')}}" method="POST">
+                                @csrf
                                 <input type="hidden" name="account_id" id="selected-account-id">
 
                                 <label for="withdraw-amount" class="block text-sm font-medium text-gray-700 mb-1">Amount to withdraw (₦)</label>
@@ -365,7 +378,7 @@
                                         <td class="px-4 py-6">{{$reserve->quantity ?? '-'}}</td>
                                         <td class="px-4 py-6">{{ $reserve->note ?? '-' }}</td>
                                         <td class="px-4 py-6">{{ \Carbon\Carbon::parse($reserve->created_at)->format('d M, Y') }}</td>
-                                        <td class="px-4 py-6 text-success">Pending</td>
+                                        <td class="px-4 py-6 text-success">Success</td>
                                 </tr>
 
                                     @endforeach

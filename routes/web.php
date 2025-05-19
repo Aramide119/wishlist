@@ -1,15 +1,21 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankController;
-use App\Http\Controllers\BankDetailsController;
-use App\Http\Controllers\GiftIdeasController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\MoneyController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\GiftIdeasController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\BankDetailsController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\WithdrawalController;
 
 Route::get('/register', [AuthController::class, 'index']);
 Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
@@ -19,6 +25,14 @@ Route::get('/wishlist/{slug}', [WishlistController::class, 'view'])->name('wishl
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [HomeController::class, 'contactUs'])->name('contact.us');
+Route::get('/reset-password', [ForgotPasswordController::class, 'index'])->name('reset.password');
+Route::get('/reset-password-otp', [ForgotPasswordController::class, 'viewotp']);
+Route::post('/reset-password-otp', [ForgotPasswordController::class, 'sendResetEmail'])->name('sendResetEmail');
+Route::post('/verify-otp', [ForgotPasswordController::class, 'reset'])->name('reset');
+Route::post('/password-reset', [ForgotPasswordController::class, 'passwordReset'])->name('password.reset');
+
+
 
 Route::post('/donate/initiate', [MoneyController::class, 'initiate'])->name('donate.initiate');
 Route::get('/donate/callback', [MoneyController::class, 'callback'])->name('donate.callback');
@@ -61,11 +75,27 @@ Route::get('/get-user-accounts', [BankDetailsController::class, 'index']);
 Route::post('/generate-gift-ideas', [GiftIdeasController::class, 'generate']);
 
 
-//wallet 
-// Route::post('/withdraw-request', [WalletController::class, 'withdrawRequest'])->name('wallet.withdraw');
+Route::post('/withdraw-request', [WithdrawalController::class, 'withdrawFunds'])->name('wallet.withdraw');
 
 
 //logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+});
+
+
+Route::get('/admin/login', [LoginController::class, 'viewLogin'])->name('admin.login');
+Route::post('/admin/submit-login', [LoginController::class, 'store'])->name('submit-login');
+Route::middleware(AdminMiddleware::class)->group(function () {
+    //dashboard
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/user', [AdminDashboardController::class, 'user'])->name('admin.user');
+
+    //setting
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+    Route::post('/admin/settings', [SettingController::class, 'store'])->name('edit.settings');
+
+
+    //logout
+    Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 });

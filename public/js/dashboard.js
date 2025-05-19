@@ -261,43 +261,6 @@
             });
         });
 
-        document.getElementById('withdraw-form').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const accountId = document.getElementById('selected-account-id').value;
-                const amount = document.getElementById('withdraw-amount').value;
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                if (!accountId || !amount) {
-                    alert("Please select an account and enter a valid amount.");
-                    return;
-                }
-
-                fetch('/withdraw-request', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({ account_id: accountId, amount: amount })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Withdrawal request submitted!');
-                        document.getElementById('withdraw-form').reset();
-                        document.getElementById('selected-account-id').value = '';
-                        toggleSidebar(false);
-                    } else {
-                        alert(data.message || 'Withdrawal failed.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Something went wrong.');
-                });
-            });
-
                  // Get all delete buttons
                 const deleteButtons = document.getElementsByClassName('deleteWishlistbutton');
                 

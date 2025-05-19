@@ -31,16 +31,8 @@
             <img src="{{ asset('images/logo.png') }}" alt="MyWishlist Logo" style="height: 50px;">
         </div>
         <div class="bg-white p-4 rounded shadow-lg w-100" style="max-width: 400px;">
-            <h2 class="text-center text-success">Get Started</h2>
-            
-            {{-- <button class="btn btn-light w-100 mt-3 border d-flex align-items-center justify-content-center">
-                <img src="{{ asset('images/google-icon.png') }}" alt="Google" class="me-2" style="height: 20px;">
-                Continue with Google
-            </button> --}}
-            
-            {{-- <div class="text-center my-3 text-muted">OR</div> --}}
-            
-            <form action="{{ route('user.login') }}" method="POST">
+            <h2 class="text-center text-success">Reset Password</h2> 
+            <form action="{{ route('password.reset') }}" method="POST">
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -53,12 +45,11 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required>
+                    <input type="hidden" name="email" id="email" class="form-control" value="{{$user->email}}" required>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">New Password</label>
                     <div class="password-container">
                         <input type="password" name="password" id="password" class="form-control" required>
                         <span class="password-toggle" id="togglePassword">
@@ -66,21 +57,10 @@
                         </span>
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                        <label class="form-check-label" for="remember">Remember Me</label>
-                    </div>
-                    <a href="{{route('reset.password')}}" class="text-decoration-none text-success">Forgot password?</a>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">save</button>
                 </div>
-                
-                <button type="submit" class="btn btn-success w-100">Login</button>
             </form>
-            
-            <div class="text-center mt-3">
-                Don't have an account? <a href="{{ url('/register') }}" class="text-success text-decoration-none">Create an account</a>
-            </div>
         </div>
     </div>
 
