@@ -73,7 +73,7 @@
                 </div>
                     
         
-            <form action="{{ route('reset') }}" method="POST">
+            <form action="{{ route('verify-email') }}" method="POST">
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -131,6 +131,8 @@
             if (timeLeft < 0) {
                 clearInterval(timerInterval);
                 counter.innerText = "Token Expired";
+                // Optional: Disable inputs or redirect
+                disableInputs();
             }
         }, 1000);
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\MoneyController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Admin\WishlistController as AdminWishlistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\GiftIdeasController;
@@ -31,6 +32,8 @@ Route::get('/reset-password-otp', [ForgotPasswordController::class, 'viewotp']);
 Route::post('/reset-password-otp', [ForgotPasswordController::class, 'sendResetEmail'])->name('sendResetEmail');
 Route::post('/verify-otp', [ForgotPasswordController::class, 'reset'])->name('reset');
 Route::post('/password-reset', [ForgotPasswordController::class, 'passwordReset'])->name('password.reset');
+Route::get('/verify-email', [AuthController::class, 'viewEmail'])->name('verify.email');
+Route::post('/reset-email-otp', [AuthController::class, 'verifyEmail'])->name('verify-email');
 
 
 
@@ -90,6 +93,10 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     //dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/user', [AdminDashboardController::class, 'user'])->name('admin.user');
+
+    //wishlist
+    Route::get('/admin/wishlists', [AdminWishlistController::class, 'index'])->name('wishlists.index');
+    Route::get('/admin/items', [AdminWishlistController::class, 'item'])->name('admin.item');
 
     //setting
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');

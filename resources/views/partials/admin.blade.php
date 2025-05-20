@@ -220,12 +220,12 @@
                 <div class="collapse" id="booking">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="">
+                      <a  href="{{ route("wishlists.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/wislists") || request()->is("admin/wishlists/*") ? "c-active" : "" }}">
                         <span class="sub-item">Wishlists</span>
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{{route("admin.item")}}">
                         <span class="sub-item">Items</span>
                       </a>
                     </li>

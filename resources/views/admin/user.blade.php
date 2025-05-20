@@ -36,28 +36,95 @@
                       >
                         <thead>
                           <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Registered On</th>
                             <th style="width: 10%">Image</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             @if (isset($users))
                             @foreach ($users as $user)
                             <tr>
-                              <td>{{ $user->first_name }}</td>
-                              <td>{{ $user->last_name }}</td>
-                              <td>{{ $user->email }}</td>
-                              <td class="px-4 py-6">{{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}</td>                                          
-                              <td>@if ($user->profile_picture)
-                                    <img class="img-fluid" src="{{ asset('user/image/'.$user->profile_picture) }}" alt="Profile Image" class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-green-600">
+                              <td>{{ $user['name']}}</td>
+                              <td>{{ $user['email'] }}</td>
+                              <td class="px-4 py-6">  {{ \Carbon\Carbon::parse($user['created_at'])->format('d M, Y') }}</td>                                          
+                              <td>@if ($user['profile_picture'])
+                                    <img class="img-fluid" src="{{ asset('user/image/'.$user['profile_picture']) }}" alt="Profile Image" class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-green-600">
                                     @else
                                     <img class="img-fluid" src="{{ asset('images/profile.jpg') }}" alt="Profile Image" class="w-24 h-24 rounded-full object-cover mx-auto border-2 border-green-600">
                                 @endif
                               </td>
+                              <td>
 
+                                    <!-- Trigger button -->
+                                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal{{ $user['id'] }}">
+                                      View Details
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="userModal{{ $user['id'] }}" tabindex="-1">
+                                      <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content p-4 rounded-4">
+                                          <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+
+                                          <h4>User Details</h4>
+                                          <p class="text-muted">Detailed information about this user account</p>
+
+                                          <div class="d-flex align-items-center mb-4">
+                                            <div class="me-3">
+                                            <img src="{{ asset('user/image/'.$user['profile_picture'] ?? 'images/profile.jpg') }}" class="rounded-circle" width="60" height="60">
+                                          </div>
+                                            <div class="ms-3">
+                                              <h5>{{ $user['name'] }}</h5>
+                                              <small class="text-muted">{{ $user['email'] }}</small><br>
+                                              <span class="badge bg-success mt-1">
+                                                {{ $user['is_verified'] ? 'Verified' : 'Unverified' }}
+                                              </span>
+                                            </div>
+                                          </div>
+
+                                          <div class="row text-center mb-4">
+                                            <div class="col-md-4">
+                                              <div class="border rounded p-3">
+                                                <div class="fw-bold fs-5">{{ $user['wishlist_count'] }}</div>
+                                                <small class="text-muted">Wishlists created</small>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="border rounded p-3">
+                                                <div class="fw-bold fs-5">{{ $user['created_at']->format('M d, Y') }}</div>
+                                                <small class="text-muted">Join Date</small>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="border rounded p-3">
+                                                <div class="fw-bold fs-5">{{ $user['account_age'] }}</div>
+                                                <small class="text-muted">Account age</small>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <h5 class="mb-3">Latest Wishlist</h5>
+                                          @if($user['latest_wishlist'])
+                                            <div class="border rounded p-3 d-flex justify-content-between align-items-center">
+                                              <div>
+                                                <strong>{{ $user['latest_wishlist']['name'] }}</strong>
+                                                <div class="text-muted small">{{ $user['latest_wishlist']['created_at'] }}</div>
+                                              </div>
+                                              {{-- <span class="badge bg-primary">{{ $user['latest_wishlist']['type'] }}</span> --}}
+                                            </div>
+                                          @else
+                                            <p class="text-muted">No wishlist yet.</p>
+                                          @endif
+                                        </div>
+                                      </div>
+                                    </div>
+
+
+
+                              </td>
                             </tr>
                             @endforeach
                             

@@ -16,9 +16,9 @@ class Item extends Model
     {
         return $this->belongsTo(Wishlist::class);
     }
-    public function reservation()
+    public function reservations()
     {
-        return $this->hasOne(ReserveItem::class);
+        return $this->hasMany(ReserveItem::class);
     }
 
 }

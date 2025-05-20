@@ -44,11 +44,30 @@ class DashboardController extends Controller
         return view('admin.wishlist', compact('$wishlists'));
     }
 
-    public function user()
-    {
-       
-        $users = User::get();
-         
-        return view('admin.user', compact('users')); 
-    }
+ public function user()
+{
+    $users = User::with(['wishlists' => function ($query) {
+        $query->latest(); // for getting the latest wishlist item
+    }])->get()->map(function ($user) {
+        $latestWishlist = $user->wishlists->first();
+        
+        return [
+            'id' => $user->id,
+            'name' => $user->first_name. " ". $user->last_name,
+            'email' => $user->email,
+            'profile_picture'=>$user->profile_picture,
+            'is_verified' => $user->email_verified_at ? true : false,
+            'created_at' => $user->created_at,
+            'account_age' => $user->created_at->diffForHumans(),
+            'wishlist_count' => $user->wishlists->count(),
+            'latest_wishlist' => $latestWishlist ? [
+                'name' => $latestWishlist->title ?? 'N/A',
+                'created_at' => $latestWishlist->created_at->format('d/m/Y'),
+            ] : null
+        ];
+    });
+
+    return view('admin.user', compact('users'));
+}
+
 }
