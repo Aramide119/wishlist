@@ -129,7 +129,7 @@
             </div>
         
 
-            @if(session('success'))
+            {{-- @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Success!</strong>
                 <span class="block sm:inline">{{ session('success') }}</span>
@@ -148,7 +148,7 @@
                     &times;
                 </span>
             </div>
-            @endif
+            @endif --}}
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -248,30 +248,30 @@
                                         <th class="px-4 py-3">Beneficiary</th>
                                         <th class="px-4 py-3">Bank</th>
                                         <th class="px-4 py-3">Amount (NGN)</th>
-                                        <th class="px-4 py-3">Transfer Fee</th>
                                         <th class="px-4 py-3">Date</th>
                                         <th class="px-4 py-3">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="border-b">
+                                    <tbody>
                                         @if ($withdrawals)
                                         @foreach ($withdrawals as $withdrawal)
-                                            <td class="px-4 py-6">{{$withdrawal->reference}}</td>
-                                                                                    <td class="px-4 py-6">{{$withdrawal->bankAccount->account_name}}</td>
-                                            <td class="px-4 py-6">{{$withdrawal->bankAccount->bank_name}}</td>
-                                            <td class="px-4 py-6">{{$withdrawal->amount}}</td>
-                                            <td class="px-4 py-6">{{ \Carbon\Carbon::parse($withdrawal->created_at)->format('d M, Y') }}</td>                                            <td class="px-4 py-6 text-success">{{$withdrawal->status}}</td>
+                                            <tr class="border-b">
+                                                <td class="px-4 py-6">{{$withdrawal->reference}}</td>
+                                                                                        <td class="px-4 py-6">{{$withdrawal->bankAccount->account_name}}</td>
+                                                <td class="px-4 py-6">{{$withdrawal->bankAccount->bank_name}}</td>
+                                                <td class="px-4 py-6">₦{{ number_format($withdrawal->amount, 2)}}</td>
+                                                <td class="px-4 py-6">{{ \Carbon\Carbon::parse($withdrawal->created_at)->format('d M, Y') }}</td>                                            <td class="px-4 py-6 text-success">{{$withdrawal->status}}</td>
+                                            </tr>
 
-@endforeach
-                                            @else
-                                        <td colspan="7" class="px-4 py-6 text-center text-gray-400">
-                                            You don't have any transaction
-                                        </td>
+                                        @endforeach
+                                        @else
+                                            <tr class="border-b">
+                                                <td colspan="7" class="px-4 py-6 text-center text-gray-400">
+                                                    You don't have any transaction
+                                                </td>
+                                            </tr>
                                         @endif
-                                       
-                                    </tr>
-                                </tbody>
+                                    </tbody>
                             </table>
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                                           <td class="px-4 py-6">
                                            {{$reserve->item->name ?? $reserve->money->name}}
                                         </td>
-                                        <td class="px-4 py-6">  {{$reserve->item->note ?? $reserve->money->description}}
+                                        <td class="px-4 py-6"> {{ $reserve->item ? $reserve->item->note : ($reserve->money ? $reserve->money->description : '-') }}</td>
                                         <td class="px-4 py-6">{{ $reserve->name }}</td>
                                         <td class="px-4 py-6">₦{{ number_format($reserve->amount, 2)}}</td>
                                         <td class="px-4 py-6">{{$reserve->quantity ?? '-'}}</td>

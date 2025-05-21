@@ -97,6 +97,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     //wishlist
     Route::get('/admin/wishlists', [AdminWishlistController::class, 'index'])->name('wishlists.index');
     Route::get('/admin/items', [AdminWishlistController::class, 'item'])->name('admin.item');
+    Route::get('/admin/money-item', [AdminWishlistController::class, 'money'])->name('money.item');
 
     //setting
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');

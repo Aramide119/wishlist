@@ -230,7 +230,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{{route('money.item')}}">
                         <span class="sub-item">Money Item</span>
                       </a>
                     </li>

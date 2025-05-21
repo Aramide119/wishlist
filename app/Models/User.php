@@ -64,4 +64,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserBankDetail::class);
     }
+
+    public function withdrawals()
+{
+    return $this->hasMany(Withdrawal::class);
+}
+
 }

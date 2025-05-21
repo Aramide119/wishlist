@@ -7,7 +7,7 @@
         <div class="container">
           <div class="page-inner">
                       <div class="page-header">
-              <h3 class="fw-bold mb-3">Wishlists</h3>
+              <h3 class="fw-bold mb-3">Gift Items</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                   <a href="#">
@@ -24,7 +24,7 @@
                   <i class="fas fa-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">WIshlist</a>
+                  <a href="#">Items</a>
                 </li>
               </ul>
             </div>
@@ -55,7 +55,7 @@
                               </td>
                               <td>{{ $wishlist->name }}</td>
 
-                              <td><a href="{{ $wishlist->link }}">{{$wishlist->website_link}}</a></td>
+                              <td><a href="{{ $wishlist->website_link }}" target="_blank">{{$wishlist->website_link}}</a></td>
                               <td>{{ $wishlist->wishlist->title}}</td>
                               
                               <td>
@@ -113,15 +113,14 @@
                                           </div>
                                           <h6 class="text-muted mt-2">Reserved By</h6>
                                         @if ($wishlist->reservations)   
-                                        @foreach ( $wishlist->reservations as $reservation )
-                                            
-                                        @endforeach              
-                                          <div class="border rounded p-3">
-                                            <strong>{{ $reservation->name}}</strong>
-                                            <div class="text-muted small">{{$reservation->email }}</div>
-                                            <div class="text-muted small">{{$reservation->note }}</div>
-                                            <div class="text-muted small">{{$reservation->quantity }} Pieces</div>
-                                          </div>
+                                          @foreach ( $wishlist->reservations as $reservation )
+                                            <div class="border rounded p-3">
+                                              <strong>{{ $reservation->name}}</strong>
+                                              <div class="text-muted small">{{$reservation->email }}</div>
+                                              <div class="text-muted small">{{$reservation->note }}</div>
+                                              <div class="text-muted small">{{$reservation->quantity }} Pieces</div>
+                                            </div>
+                                          @endforeach              
                                         @else
                                           <p class="text-muted text-center" >No Reservations yet in this wishlist.</p>
                                         @endif

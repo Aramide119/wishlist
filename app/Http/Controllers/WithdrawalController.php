@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WithdrawFundEmail;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use App\Models\UserBankDetail;
 use App\Models\WalletTransaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class WithdrawalController extends Controller
 {
@@ -27,10 +29,10 @@ public function withdrawFunds(Request $request)
             ->firstOrFail();
 
         $totalwalletBalance = WalletTransaction::where('user_id', $user->id)
-            ->where('type', 'credit')->sum('amount');
+            ->where('type', 'credit')->where('status', 'successful')->sum('amount');
 
         $amountWithdrawn = WalletTransaction::where('user_id', $user->id)
-            ->where('type', 'debit')->sum('amount');
+            ->where('type', 'debit')->where('status', 'successful')->sum('amount');
 
         $walletBalance = $totalwalletBalance - $amountWithdrawn;
 
@@ -48,7 +50,19 @@ public function withdrawFunds(Request $request)
             'reference' => strtoupper(uniqid('WD-')),
         ]);
 
+                // Store the pending transaction
+        WalletTransaction::create([
+            'user_id' =>  $user->id,
+            'reference_id' => $withdrawal->reference,
+            'type' => 'debit',
+            'amount' => $request->amount,
+            'transfer_fee' => '0',
+            'status' => 'pending',
+            'description' => 'withdraw',
+        ]);
+
         DB::commit();
+         Mail::to($user->email)->send(new WithdrawFundEmail($withdrawal, $user));
 
         return back()->with('success' , 'Withdrawal request submitted, you will be credited in the next 24 hours.');
 

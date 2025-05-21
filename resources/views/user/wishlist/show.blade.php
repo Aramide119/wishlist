@@ -143,28 +143,27 @@
                                 <p class="item-price">₦{{ $item->price }}</p>
                             </div>
                             <div class="item-actions">
-                             @php
-                                $isReserved = $item->reservation()->exists();
-                            @endphp
+                                @php
+                                    $totalQuantity = $item->quantity;
+                                    $reservedQuantity = $item->reservations()->sum('quantity');
+                                    $available = $totalQuantity - $reservedQuantity;
+                                @endphp
 
-                            @if($isReserved)
-                                <button disabled class="btn btn-secondary">Reserved</button>
-                            @else
-                                <button 
-                                    class="btn btn-outline-success reserveBtn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#reserveModal"
-                                    data-id = "{{$item->id}}"
-                                    data-name="{{$item->name}}"
-                                    data-description="{{$item->note}}."
-                                    data-link="{{$item->website_link}}"
-                                    >
-                                    Reserve
-                                </button>
-                            @endif
-                                
-
-
+                                @if($available <= 0)
+                                    <button disabled class="btn btn-secondary">Reserved</button>
+                                @else
+                                    <button 
+                                        class="btn btn-outline-success reserveBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reserveModal"
+                                        data-id="{{$item->id}}"
+                                        data-name="{{$item->name}}"
+                                        data-description="{{$item->note}}"
+                                        data-link="{{$item->website_link}}"
+                                        >
+                                        Reserve ({{ $available }} left)
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         
@@ -228,12 +227,12 @@
                 <input type="hidden" id="itemIdInput" name="item_id">
 
                 <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Your Name (optional)" id="nameInput">
+                <input type="text" class="form-control" placeholder="Your Name" id="nameInput">
                 <small class="text-muted">Input your name so they know who paid</small>
                 </div>
 
                 <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Email address (optional)" id="emailInput">
+                <input type="email" class="form-control" placeholder="Email address" id="emailInput">
                 </div>
 
                 <div class="mb-3">
@@ -345,6 +344,9 @@
                         })
                     })
                     .then(res => res.text())
+                     .then(data => {
+                        location.reload();
+                    })
                     .then(text => {
                         try {
                             const data = JSON.parse(text);

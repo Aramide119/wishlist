@@ -9,8 +9,18 @@ class Withdrawal extends Model
     //
     protected $guarded = [];
     
-        public function bankAccount()
+   public function bankAccount()
     {
-        return $this->belongsTo(UserBankDetail::class);
+        return $this->belongsTo(UserBankDetail::class, 'account_id');
     }
+
+public function walletTransactions()
+{
+    return $this->hasMany(WalletTransaction::class);
+}
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

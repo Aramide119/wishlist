@@ -13,4 +13,8 @@ class Money extends Model
     {
         return $this->belongsTo(Wishlist::class);
     }
+     public function reservations()
+    {
+        return $this->hasMany(ReserveItem::class);
+    }
 }

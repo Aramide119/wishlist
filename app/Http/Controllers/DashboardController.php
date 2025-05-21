@@ -21,13 +21,13 @@ class DashboardController extends Controller
         $wishlists = Wishlist::where('user_id', $id)
             ->withCount('items')
             ->get();
-        $withdrawals = Withdrawal::with('user.')->where('user_id', $id)->get();
+        $withdrawals = Withdrawal::with('user', 'bankAccount')->where('user_id', $id)->get();
             // Sum of ReserveItem amounts for current user's wishlists
-        $totalwalletBalance = WalletTransaction::where('user_id', $id)->where('type', 'credit')->sum('amount');
+        $totalwalletBalance = WalletTransaction::where('user_id', $id)->where('type', 'credit')->where('status', 'successful')->sum('amount');
         
-        $amountWithdrawn = WalletTransaction::where('user_id', $id)->where('type', 'debit')->sum('amount');
+        $amountWithdrawn = WalletTransaction::where('user_id', $id)->where('type', 'debit')->where('status', 'successful')->sum('amount');
         $currentBalance = $totalwalletBalance- $amountWithdrawn;
-            $reserved = ReserveItem::with(['item', 'money.wishlist'])
+            $reserved = ReserveItem::with(['item', 'money'])
             ->whereHas('money.wishlist', function ($query) use ($id) {
                 $query->where('user_id', $id);
             })
@@ -35,7 +35,6 @@ class DashboardController extends Controller
                 $query->where('user_id', $id);
             })
             ->get();
-        
         // dd($reserved);
         return view('user.dashboard.index', compact('wishlists', 'user', 'totalwalletBalance', 'reserved', 'amountWithdrawn', 'currentBalance', 'withdrawals'));
     }

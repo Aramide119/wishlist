@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\WalletTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ReserveItem;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardController extends Controller
     {
         $wishlistCount= Wishlist::count();
         $userCount = User::count();
-        $revenue = WalletTransaction::where('type', 'credit')->sum('amount');
+        $revenue = ReserveItem::sum('amount');
         $users = User::latest()->take(10)->get();
         $usersByMonth = User::select(
                 DB::raw("COUNT(*) as count"),
