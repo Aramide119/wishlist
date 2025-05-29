@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\WithdrawFundEmail;
+use Log;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use App\Models\UserBankDetail;
+use App\Mail\WithdrawFundEmail;
 use App\Models\WalletTransaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ public function withdrawFunds(Request $request)
                 // Store the pending transaction
         WalletTransaction::create([
             'user_id' =>  $user->id,
+            'withdrawal_id' =>  $withdrawal->id,
             'reference_id' => $withdrawal->reference,
             'type' => 'debit',
             'amount' => $request->amount,
@@ -68,7 +70,7 @@ public function withdrawFunds(Request $request)
 
     } catch (\Exception $e) {
         DB::rollBack();
-        \Log::error('Withdrawal Error: ' . $e->getMessage());
+        Log::error('Withdrawal Error: ' . $e->getMessage());
         return back()->with('error' , 'Server error.');
     }
 }

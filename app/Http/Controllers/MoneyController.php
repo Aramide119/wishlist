@@ -81,14 +81,17 @@ class MoneyController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'amount' => $request->amount,
+            'reference_id' => $reference,
             'money_id' => $request->money_id,
             'note' => $request->note,
+            'status'=>'pending',
         ]);
         // Store the pending transaction
         WalletTransaction::create([
             'user_id' =>  $wishlist->user_id,
             'reference_id' => $reference,
             'type' => 'credit',
+            'total_amount' => $request->input('amount'),
             'amount' => $amount,
             'transfer_fee' => '0',
             'status' => 'pending',
@@ -119,7 +122,8 @@ class MoneyController extends Controller
         if ($response['data']['status'] === 'success') {
             $transaction = WalletTransaction::where('reference_id', $reference)->firstOrFail();
             $transaction->update(['status' => 'successful']);
-
+            $reservation = ReserveItem::where('reference_id', $reference)->firstOrfail();
+            $reservation->update(['status' => 'successful']);
             return redirect('/')->with('success', 'Donation successful!');
         }
 

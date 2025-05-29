@@ -21,7 +21,7 @@
 
         <section style="height: 118px; margin-left: 24px; margin-right: 24px; margin-top: 32px;">
 
-            <h2 style="color:black">Hello, {{ $user->name }}</h2>
+            <h2 style="color:black">Hello, {{ $user->first_name. " ". $user->last_name }}</h2>
 
             <hr style="border: 1px solid #1ABC943B;">
 

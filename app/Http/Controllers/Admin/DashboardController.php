@@ -19,7 +19,9 @@ class DashboardController extends Controller
     {
         $wishlistCount= Wishlist::count();
         $userCount = User::count();
-        $revenue = ReserveItem::sum('amount');
+        $revenue = ReserveItem::where('status', 'successful')->sum('amount');
+        $transaction = WalletTransaction::where('status', 'successful')->where('type', 'credit')->sum('amount');
+        $tax = $revenue - $transaction;
         $users = User::latest()->take(10)->get();
         $usersByMonth = User::select(
                 DB::raw("COUNT(*) as count"),
@@ -34,7 +36,7 @@ class DashboardController extends Controller
             $months = $usersByMonth->pluck('month');
             $counts = $usersByMonth->pluck('count');
     
-    return view('admin.index', compact('wishlistCount', 'userCount','revenue', 'users', 'months', 'counts'));
+    return view('admin.index', compact('wishlistCount', 'userCount','revenue', 'users', 'months', 'counts', 'tax'));
     }
 
     public function wishlist()

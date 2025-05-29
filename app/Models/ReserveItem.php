@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReserveItem extends Model
 {
     //
-    protected $fillable = ['name', 'email', 'quantity', 'item_id', 'amount', 'money_id', 'note', 'accepted_terms'];
+    protected $fillable = ['name', 'email','reference_id','status', 'quantity', 'item_id', 'amount', 'money_id', 'note', 'accepted_terms'];
     public function money()
 {
     return $this->belongsTo(Money::class, 'money_id');

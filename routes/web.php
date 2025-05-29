@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\GiftIdeasController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\BankDetailsController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\WithdrawalController;
@@ -98,6 +99,11 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('/admin/wishlists', [AdminWishlistController::class, 'index'])->name('wishlists.index');
     Route::get('/admin/items', [AdminWishlistController::class, 'item'])->name('admin.item');
     Route::get('/admin/money-item', [AdminWishlistController::class, 'money'])->name('money.item');
+
+    //withdrawals
+    Route::get('/admin/withdrawals', [TransactionController::class, 'withdraw'])->name('admin.withdraw');
+    Route::post('/admin/update-withdrawal/{id}', [TransactionController::class, 'updateStatus'])->name('admin.withdraw-status');
+    Route::get('/admin/transactions', [TransactionController::class, 'index'])->name('admin.transaction');
 
     //setting
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');

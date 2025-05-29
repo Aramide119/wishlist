@@ -27,7 +27,7 @@ class DashboardController extends Controller
         
         $amountWithdrawn = WalletTransaction::where('user_id', $id)->where('type', 'debit')->where('status', 'successful')->sum('amount');
         $currentBalance = $totalwalletBalance- $amountWithdrawn;
-            $reserved = ReserveItem::with(['item', 'money'])
+            $reserved = ReserveItem::with(['item', 'money'])->where('status', 'successful')
             ->whereHas('money.wishlist', function ($query) use ($id) {
                 $query->where('user_id', $id);
             })

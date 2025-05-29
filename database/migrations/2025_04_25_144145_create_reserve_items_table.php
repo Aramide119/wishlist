@@ -21,6 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id')->nullable();
             $table->string('money_id')->nullable();
             $table->boolean('accepted_terms')->default(false);
+            $table->string('status')->nullable();
+            $table->string('reference_id')->nullable();
             $table->timestamps();
         });
     }

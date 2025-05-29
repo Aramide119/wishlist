@@ -246,8 +246,13 @@
                 <div class="collapse" id="tables">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="">
-                        <span class="sub-item">Trasanctions</span>
+                      <a href="{{route('admin.transaction')}}">
+                        <span class="sub-item">Transactions</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{route('admin.withdraw')}}">
+                        <span class="sub-item">Withdrawals</span>
                       </a>
                     </li>
                   </ul>

@@ -36,6 +36,7 @@ class ItemController extends Controller
                 'email' => $request->email,
                 'quantity' => $request->quantity,
                 'item_id' => $request->item_id,
+                'status' =>'successful',
                 'accepted_terms' => $request->accepted_terms,
             ]);
     
